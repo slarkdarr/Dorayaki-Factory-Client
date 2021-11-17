@@ -50,22 +50,22 @@ const IndexDropdown = () => {
           Dashboard
         </Link>
         <Link
-          to="/admin/settings"
+          to="/admin/requestlist"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
-          Settings
+          Request List
         </Link>
         <Link
-          to="/admin/tables"
+          to="/admin/recipes"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
-          Tables
+          Recipes
         </Link>
         <Link
-          to="/admin/maps"
+          to="/admin/ingredients"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
         >
-          Maps
+          Ingredients
         </Link>
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
