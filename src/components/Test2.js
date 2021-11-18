@@ -1,5 +1,9 @@
 import React from "react";
 
+//components
+
+import TableDropdown from "components/Dropdowns/TableDropdown.js";
+
 export default function Test2(props) {
     const displayEvents = (props) => {
         const events = Object.values(props)[0];
@@ -27,6 +31,9 @@ export default function Test2(props) {
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                             {event.actor.avatar_url}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                            <TableDropdown />
                         </td>
                     </tr>
                 )

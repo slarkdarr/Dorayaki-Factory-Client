@@ -20,5 +20,7 @@ export default function Test({color}) {
         .catch(error => console.error(`Error : ${error}`));
     }
 
-    return ( <Test2 events={events}/> )
+    return (
+        <Test2 events={events}/>
+    )
 }
