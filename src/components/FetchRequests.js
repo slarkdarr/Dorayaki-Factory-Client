@@ -4,7 +4,7 @@ import axios from "axios";
 export default function FetchRequests() {
   const [data, setData] = useState([]);
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjM3MjU0MjQwLCJleHAiOjE2MzcyNTk2NDB9.JWugVooFAS31h0OsaCY-iq2Gess5X315LCyOut9NMD0";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjM3Mjg2MDUyLCJleHAiOjE2MzcyOTE0NTJ9.UTbWQ9tgDb2TIAr7CrgMkkCF2ajUOFFQGfK_f_WHUnI";
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -15,12 +15,10 @@ export default function FetchRequests() {
       const result = await axios(url, config);
       setData(result.data);
     })();
-  }, []);
+  });
 
   return(
-  <div className="flex flex-wrap mt-4">
-    <div className="w-full mb-12 px-4">
-      <h2>{data.status}</h2>;
-    </div>
+  <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+      <h2 className="text-black">{data.status}</h2>;
   </div>)
 }
