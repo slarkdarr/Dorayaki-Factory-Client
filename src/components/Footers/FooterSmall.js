@@ -20,7 +20,7 @@ export default function FooterSmall(props) {
                   href="https://www.creative-tim.com?ref=nr-footer-small"
                   className="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
                 >
-                  Creative Tim
+                  WBD
                 </a>
               </div>
             </div>
@@ -28,34 +28,32 @@ export default function FooterSmall(props) {
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
                 <li>
                   <a
-                    href="https://www.creative-tim.com?ref=nr-footer-small"
+                    href="https://gitlab.informatika.org/daffan02"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    Creative Tim
+                    Daffa Ananda P. R.
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.creative-tim.com/presentation?ref=nr-footer-small"
+                    href="https://gitlab.informatika.org/f_aziz14"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    About Us
+                    Faris Aziz
                   </a>
                 </li>
                 <li>
                   <a
-                    href="http://blog.creative-tim.com?ref=nr-footer-small"
+                    href="https://gitlab.informatika.org/mhmmdjafarg"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md?ref=nr-footer-small"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    MIT License
+                    Muhammad Jafar Gundari
                   </a>
                 </li>
               </ul>
