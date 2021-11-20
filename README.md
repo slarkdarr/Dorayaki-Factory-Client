@@ -15,7 +15,6 @@
 ### Pages
 
 Here are all the page from the project:
-- [Presentation](https://demos.creative-tim.com/notus-react/?ref=nr-github-readme)
 - Admin
   - [Dashboard](https://demos.creative-tim.com/notus-react/admin/dashboard?ref=nr-github-readme)
   - [Settings](https://demos.creative-tim.com/notus-react/admin/settings?ref=nr-github-readme)
@@ -26,4 +25,3 @@ Here are all the page from the project:
   - [Register](https://demos.creative-tim.com/notus-react/auth/register?ref=nr-github-readme)
 - Presentation
   - [Landing](https://demos.creative-tim.com/notus-react/landing?ref=nr-github-readme)
-  - [Profile](https://demos.creative-tim.com/notus-react/profile?ref=nr-github-readme)
