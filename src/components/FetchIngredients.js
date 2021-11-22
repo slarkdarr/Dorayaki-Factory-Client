@@ -28,7 +28,7 @@ export default function FetchIngredients() {
           -
         </td>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          <button className="whitespace-nowrap  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+          <button className="bg-blue-500 hover:bg-blue-700font-bold py-2 px-4 border border-blue-700 rounded">
             Button
           </button>
         </td>
@@ -48,7 +48,7 @@ export default function FetchIngredients() {
           {ingredient.stock}
         </td>
         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-          <button className="whitespace-nowrap  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+          <button className="whitespace-nowrap  bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 border border-blue-700 rounded">
             Button
           </button>
         </td>
