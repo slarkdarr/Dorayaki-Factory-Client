@@ -2,6 +2,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Register() {
+  const base_url = window.location.origin;
+  const url = base_url + "/api/users/login";
+
+  // function checkUsername() {   
+  //   let username = document.getElementById('username');
+  //   let userValue = username.value;
+  //   let notAvailUsername = document.getElementById('username-not-available');
+  //   let xhttp = new XMLHttpRequest();
+  //   xhttp.onreadystatechange = function() {
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       const data = JSON.parse(xhttp.responseText);
+  //       if (data[0]) {
+  //         username.style.borderColor = "red";
+  //         notAvailUsername.innerHTML = "Username is not available!";
+  //       } else {
+  //         if (!username.checkValidity()) {
+  //           username.style.borderColor = "red";
+  //           notAvailUsername.innerHTML = "Please input alphanumeric, number, and underscore";
+  //         } else {
+  //           username.style.borderColor = "green";
+  //           notAvailUsername.innerHTML = "";
+  //         }
+  //       }
+  //     }
+  //   };
+  //   xhttp.open("GET", url+"/api/users/admin" + userValue, true);
+  // }
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -12,8 +40,8 @@ export default function Register() {
                 <div className="text-blueGray-400 text-center mb-3 mt-3 font-bold">
                   <small>Sign up with credentials</small>
                 </div>
-                <form>
-                  <div className="relative w-full mb-3">
+                <form id="register-form">
+                <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
@@ -21,9 +49,29 @@ export default function Register() {
                       Username
                     </label>
                     <input
-                      type="email"
+                      // onkeyup = {checkUsername()}
+                      type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      name="username"
                       placeholder="Username"
+                      required
+                    />
+                    {/* <div id="username-not-available" class="username-not-available"></div> */}
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      name="name"
+                      placeholder="Nama Lengkap"
+                      required
                     />
                   </div>
 
@@ -37,7 +85,9 @@ export default function Register() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      name="email"
                       placeholder="Email"
+                      required
                     />
                   </div>
 
@@ -51,7 +101,9 @@ export default function Register() {
                     <input
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      name="email"
                       placeholder="Password"
+                      required
                     />
                   </div>
 
@@ -63,14 +115,7 @@ export default function Register() {
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                        I agree with the{" "}
-                        <a
-                          href="#pablo"
-                          className="text-lightBlue-500"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Privacy Policy
-                        </a>
+                        Saya setuju dengan Syarat dan Ketentuan
                       </span>
                     </label>
                   </div>
@@ -95,6 +140,13 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <script type="text/javascript">
+        function postUrl() {
+          let base_url = window.location.origin;
+          document.getElementById("register-form").action = base_url;
+          document.getElementById("register-form").method = "POST";
+        }
+      </script>
     </>
   );
 }
