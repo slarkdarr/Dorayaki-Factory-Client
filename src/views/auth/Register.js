@@ -52,6 +52,8 @@ export default function Register() {
                       // onkeyup = {checkUsername()}
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      pattern="^[a-zA-Z0-9_]*$"
+                      minlength="5"
                       name="username"
                       placeholder="Username"
                       required
@@ -86,7 +88,7 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       name="email"
-                      placeholder="Email"
+                      placeholder="example@global.com"
                       required
                     />
                   </div>
@@ -101,7 +103,8 @@ export default function Register() {
                     <input
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      name="email"
+                      minlength="5"
+                      name="password"
                       placeholder="Password"
                       required
                     />
