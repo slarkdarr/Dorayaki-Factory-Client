@@ -40,7 +40,7 @@ export default function Register() {
                 <div className="text-blueGray-400 text-center mb-3 mt-3 font-bold">
                   <small>Sign up with credentials</small>
                 </div>
-                <form id="register-form">
+                <form action={url}>
                 <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -143,13 +143,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <script type="text/javascript">
-        function postUrl() {
-          let base_url = window.location.origin;
-          document.getElementById("register-form").action = base_url;
-          document.getElementById("register-form").method = "POST";
-        }
-      </script>
     </>
   );
 }
