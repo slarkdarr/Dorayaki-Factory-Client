@@ -44,7 +44,7 @@ export default function FetchRequests() {
   });
 
   return(
-  <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-      <CardTableRequest columns={columns} data={data}/>
+  <div className="App">
+      <CardTableRequest columns={columns} data={data} />
   </div>)
 }
