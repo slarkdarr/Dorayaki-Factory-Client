@@ -21,7 +21,7 @@ export default function FooterAdmin() {
                     rel="noreferrer"
                     className="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
                   >
-                    Daffa Ananda
+                    Daffa Ananda P. R.
                   </a>
                 </li>
                 <li>

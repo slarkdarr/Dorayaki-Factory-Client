@@ -11,7 +11,7 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 
-import Landing from "views/Landing.js";
+// import Landing from "views/Landing.js";
 
 class CheckValidateRoute extends React.Component {
     render() {
@@ -22,7 +22,7 @@ class CheckValidateRoute extends React.Component {
                     <Route path="/admin" component={Admin} />
                     <Route path="/auth" component={Auth} />
                     {/* add routes without layouts */}
-                    <Route path="/" exact component={Landing} />
+                    {/* <Route path="/" exact component={Landing} /> */}
                     {/* add redirect for first page */}
                     <Redirect from="*" to="/admin/dashboard" />
                 </div>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // components
 import FetchRecipes from "components/FetchRecipes";
 
-export default function CardTable({ color }) {
+export default function CardTableRecipes({ color }) {
   return (
     <>
       <div
@@ -83,10 +83,10 @@ export default function CardTable({ color }) {
   );
 }
 
-CardTable.defaultProps = {
+CardTableRecipes.defaultProps = {
   color: "light",
 };
 
-CardTable.propTypes = {
+CardTableRecipes.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

@@ -2,14 +2,14 @@ import React from "react";
 
 // components
 
-import CardRecipes from "components/Cards/CardRecipes";
+import CardTableRecipes from "components/Cards/CardTableRecipes.js";
 
 export default function Recipes() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardRecipes />
+          <CardTableRecipes />
         </div>
       </div>
     </>
