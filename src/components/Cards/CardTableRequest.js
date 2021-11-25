@@ -9,6 +9,9 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 export default function CardTableRequest({ columns, data, color }) {
     const [filterInput, setFilterInput] = useState([]);
 
+    // const cleanData = JSON.parse(data);
+    // console.log(cleanData);
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -26,7 +29,7 @@ export default function CardTableRequest({ columns, data, color }) {
 
     const handleFilterChange = e => {
         const value = e.target.value || undefined;
-        setAllFilters([value]);
+        setAllFilters([]);
         setFilterInput(value);
     };
 
@@ -69,26 +72,29 @@ export default function CardTableRequest({ columns, data, color }) {
                                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                                 (color === "light"
                                 ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700") +
-                                (column.isSorted
-                                    ? column.isSortedDesc
-                                        ? "sort-desc"
-                                        : "sort-asc"
-                                    : "")
+                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700") 
+                                // (column.isSorted
+                                //     ? column.isSortedDesc
+                                //         ? "sort-desc"
+                                //         : "sort-asc"
+                                //     : "")
                             }>
                                 {column.render("Header")}
+                                <span>
+                +                 {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                +               </span>
                             </th>
                             ))}
+                            <th
+                            className={
+                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                (color === "light"
+                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                            }
+                            ></th>
                         </tr>
                     ))}
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }>
-                    </th>
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {rows.map((row, i) => {
@@ -101,12 +107,12 @@ export default function CardTableRequest({ columns, data, color }) {
                                         {cell.render("Cell")}
                                     </td>;
                                 })}
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                    <TableDropdown />
+                                </td>
                             </tr>
                         );
                     })}
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <TableDropdown />
-                    </td>
                 </tbody>
             </table>
             </div>
