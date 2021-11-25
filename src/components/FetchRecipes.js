@@ -5,15 +5,19 @@ const url = "http://localhost:5000/api/recipes";
 
 export default function FetchRecipes() {
   const [data, setData] = useState([]);
+  const token = sessionStorage.getItem('token');
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   useEffect(() => {
     axios
-      .get(url)
+      .get(url, config)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => console.error(`Error : ${error}`));
-  }, []);
+  });
 
   if (data.length === 0 || data.status === "Error")
     return (
