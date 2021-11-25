@@ -1,10 +1,35 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useTable, useFilters, useSortBy } from "react-table";
 
 // components
 
-import Test from "components/Test.js";
+import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function CardTable({ color }) {
+export default function CardTableRequest({ columns, data, color }) {
+    const [filterInput, setFilterInput] = useState("");
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        setAllFilters
+    } = useTable({
+        columns,
+        data
+    },
+    useFilters,
+    useSortBy
+    );
+
+    const handleFilterChange = e => {
+        const value = e.target.value || undefined;
+        setAllFilters([value]);
+        setFilterInput(value);
+    };
+
     return (
         <>
         <div
@@ -22,76 +47,40 @@ export default function CardTable({ color }) {
                     (color === "light" ? "text-blueGray-700" : "text-white")
                     }
                 >
-                    Github Event Authors
+                    Tabel Request
                 </h3>
+                <input
+                    value={filterInput}
+                    onChange={handleFilterChange}
+                    placeholder={"Search..."}
+                />
                 </div>
             </div>
             </div>
             <div className="block w-full overflow-x-auto">
             {/* Projects table */}
-            <table className="items-center w-full bg-transparent border-collapse">
+            <table {...getTableProps()} className="items-center w-full bg-transparent border-collapse">
                 <thead>
-                <tr>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        ID
-                    </th>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        Login
-                    </th>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        Display Login
-                    </th>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        Gravatar ID
-                    </th>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        URL
-                    </th>
-                    <th
-                    className={
-                        "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                        (color === "light"
-                        ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                        : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                    }
-                    >
-                        Avatar URL
-                    </th>
+                    {headerGroups.map(headerGroup => (
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps(column.getSortByToggleProps())}
+                                className={
+                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                (color === "light"
+                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700") +
+                                (column.isSorted
+                                    ? column.isSortedDesc
+                                        ? "sort-desc"
+                                        : "sort-asc"
+                                    : "")
+                            }>
+                                {column.render("Header")}
+                            </th>
+                            ))}
+                        </tr>
+                    ))}
                     <th
                     className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -100,10 +89,24 @@ export default function CardTable({ color }) {
                         : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                     }>
                     </th>
-                </tr>
                 </thead>
-                <tbody>
-                    <Test />
+                <tbody {...getTableBodyProps()}>
+                    {rows.map((row, i) => {
+                        prepareRow(row);
+                        return (
+                            <tr {...row.getRowProps()}>
+                                {row.cells.map(cell => {
+                                    return <td {...cell.getCellProps()} 
+                                        className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        {cell.render("Cell")}
+                                    </td>;
+                                })}
+                            </tr>
+                        );
+                    })}
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                        <TableDropdown />
+                    </td>
                 </tbody>
             </table>
             </div>
@@ -112,10 +115,10 @@ export default function CardTable({ color }) {
     );
 }
 
-CardTable.defaultProps = {
+CardTableRequest.defaultProps = {
   color: "light",
 };
 
-CardTable.propTypes = {
+CardTableRequest.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
