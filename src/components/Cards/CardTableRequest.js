@@ -7,7 +7,7 @@ import { useTable, useFilters, useSortBy } from "react-table";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
 export default function CardTableRequest({ columns, data, color }) {
-    const [filterInput, setFilterInput] = useState("");
+    const [filterInput, setFilterInput] = useState([]);
 
     const {
         getTableProps,

@@ -41,46 +41,6 @@ const PagesDropdown = () => {
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
-          Admin Pages
-        </span>
-        <Link
-          to="/admin/dashboard"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Dashboard
-        </Link>
-        <Link
-          to="/admin/requestlist"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Request List
-        </Link>
-        <Link
-          to="/admin/recipes"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Recipes
-        </Link>
-        <Link
-          to="/admin/ingredients"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-        >
-          Ingredients
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
           Auth Pages
         </span>
         <Link
