@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-
+import api from "api";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
 
@@ -16,6 +16,7 @@ import Auth from "layouts/Auth.js";
 class CheckValidateRoute extends React.Component {
     render() {
         if(sessionStorage.getItem('token')){
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage.getItem('token');
             return (
                 <div>
                     {/* add routes with layouts */}
