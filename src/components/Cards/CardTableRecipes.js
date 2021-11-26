@@ -78,16 +78,6 @@ const CardTableRecipes = () => {
     fetchRecipes(page, newPerPage);
     setPerPage(newPerPage);
   };
-  // handlepagechange ingredients
-  const handlePageChangeIngredients = page => {
-    fetchIngredients(page);
-    setCurrentPageIngredients(page);
-  };
-
-  const handlePerRowsChangeIngredients = async (newPerPage, page) => {
-    fetchRecipes(page, newPerPage);
-    setPerPage(newPerPage);
-  };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 

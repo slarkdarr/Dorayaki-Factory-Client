@@ -111,6 +111,26 @@ const CardTableIngredients = () => {
     [handleView]
   );
 
+  // Form data edit stock
+  const initialStockState = {
+    quantity: 1,
+  };
+  const [stock, setStock] = useState(initialStockState);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setStock({ ...stock, [name]: value });
+  };
+
+  const saveStock = async () => {
+    var data = {
+      quantity: stock.quantity,
+    };
+    const response = await DorayakiService.updateIngredient(); // id here
+    console.log(data);
+    closeModal();
+  };
+
   return (
     <>
       <Modal
@@ -121,18 +141,35 @@ const CardTableIngredients = () => {
         overlayClassName="Overlay"
         ariaHideApp={false}
       >
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-
+        <div className="submit-form">
+            <div>
+              <div className="form-group">
+                <label htmlFor="title">New Stock</label>
+                <input
+                  type="number"
+                  min={1}
+                  className="form-control"
+                  id="quantity"
+                  required
+                  value={stock.quantity}
+                  onChange={handleInputChange}
+                  name="quantity"
+                />
+              </div>
+              <button
+                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+              <button onClick={saveStock} className="btn btn-success">
+                Submit
+              </button>
+            </div>
+        </div>
         {/*footer*/}
-        <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+        {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
           <button
             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
@@ -142,12 +179,12 @@ const CardTableIngredients = () => {
           </button>
           <button
             className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
+            type="submit"
             onClick={closeModal}
           >
             Save Changes
           </button>
-        </div>
+        </div> */}
       </Modal>
       <DataTable
         title="Recipes"
