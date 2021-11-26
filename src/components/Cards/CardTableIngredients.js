@@ -128,7 +128,7 @@ const CardTableIngredients = () => {
       stock: stock.quantity,
     };
     const response = await DorayakiService.updateIngredient(currentId, data); // id here
-    console.log(currentId);
+    console.log(data);
     closeModal();
   };
 
@@ -145,7 +145,7 @@ const CardTableIngredients = () => {
         <div className="submit-form">
             <div>
               <div className="form-group">
-                <label htmlFor="title">New Stock</label>
+                <label htmlFor="title" className="mr-2">New Stock</label>
                 <input
                   type="number"
                   min={1}

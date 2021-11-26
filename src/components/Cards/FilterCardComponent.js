@@ -43,7 +43,6 @@ const Button = styled.button`
 
 const FilterCardComponent = ({ filterText, onFilter, onClear }) => (
   <>
-    <Button>Add</Button>
     <Input
       id="search"
       type="text"

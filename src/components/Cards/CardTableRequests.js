@@ -79,6 +79,16 @@ const CardTableRequests = () => {
         sortable: true
       },
       {
+        name: "Created At",
+        selector: (row) => row["createdAt"],
+        sortable: true
+      },
+      {
+        name: "Updated At",
+        selector: (row) => row["updatedAt"],
+        sortable: true
+      },
+      {
         name: "Action",
         // eslint-disable-next-line react/button-has-type
         cell: row => <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"  onClick={console.log('tes')}>View</button>
