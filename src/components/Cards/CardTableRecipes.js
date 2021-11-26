@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
+import Modal from 'react-modal';
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
 import api from "../../api"
@@ -63,7 +63,7 @@ const CardTableRecipes = () => {
       {
         name: "Action",
         // eslint-disable-next-line react/button-has-type
-        cell: row => <button onClick={console.log('tes')}>View</button>
+        cell: row => <button onClick={openModal}>View</button>
       }
     ],
     []
@@ -79,7 +79,33 @@ const CardTableRecipes = () => {
     setPerPage(newPerPage);
   };
 
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
+    <>
+    <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Example Modal"
+      >
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
     <DataTable
       title="Recipes"
       columns={columns}
@@ -97,6 +123,7 @@ const CardTableRecipes = () => {
       onChangePage={handlePageChange}
       onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
     />
+    </>
   );
 };
 
