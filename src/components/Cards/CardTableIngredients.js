@@ -127,6 +127,9 @@ const CardTableIngredients = () => {
     var data = {
       stock: stock.quantity,
     };
+    if(data.stock === '' || data.stock <= 0){
+      return alert('Stock cannot be null and must be greater than 0');
+    }
     const response = await DorayakiService.updateIngredient(currentId, data); // id here
     console.log(data);
     closeModal();
@@ -144,7 +147,7 @@ const CardTableIngredients = () => {
       >
         <div className="submit-form">
             <div>
-              <div className="form-group">
+              <div className="form-group mb-2">
                 <label htmlFor="title" className="mr-2">New Stock</label>
                 <input
                   type="number"
@@ -164,7 +167,7 @@ const CardTableIngredients = () => {
               >
                 Close
               </button>
-              <button onClick={saveStock} className="btn btn-success">
+              <button onClick={saveStock} className="text-emerald-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                 Submit
               </button>
             </div>
@@ -188,7 +191,7 @@ const CardTableIngredients = () => {
         </div> */}
       </Modal>
       <DataTable
-        title="Recipes"
+        title="Ingredients"
         columns={columns}
         data={filteredItems}
         pagination
