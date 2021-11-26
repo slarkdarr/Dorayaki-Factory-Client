@@ -14,7 +14,7 @@ const CardTableRequests = () => {
   const [filterText, setFilterText] = useState('');
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 	const filteredItems = data.filter(
-		item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
+		item => item.email && item.email.toLowerCase().includes(filterText.toLowerCase()),
 	);
 
   const subHeaderComponentMemo = useMemo(() => {
@@ -30,10 +30,11 @@ const CardTableRequests = () => {
 		);
 	}, [filterText, resetPaginationToggle]);
 
-  const fetchUsers = async (page, size = perPage) => {
+  const fetchRequests = async (page, size = perPage) => {
     setLoading(true);
 
-    const response = await DorayakiService.getAllRequests();
+    const response = await DorayakiService.getRequests();
+    console.log(response.data.data)
 
     setData(response.data.data);
     setTotalRows(response.data.total);
@@ -41,37 +42,19 @@ const CardTableRequests = () => {
   };
 
   useEffect(() => {
-    fetchUsers(1);
+    fetchRequests(1);
   }, []);
 
   
   const handlePageChange = page => {
-    fetchUsers(page);
+    fetchRequests(page);
     setCurrentPage(page);
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    fetchUsers(page, newPerPage);
+    fetchRequests(page, newPerPage);
     setPerPage(newPerPage);
   };
-
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const handleView = useCallback(
-    row =>  () => {
-      console.log(row.id);
-      openModal();
-    },
-    [currentPage, perPage, totalRows]
-  );
 
   const columns = useMemo(
     () => [
@@ -98,31 +81,15 @@ const CardTableRequests = () => {
       {
         name: "Action",
         // eslint-disable-next-line react/button-has-type
-        cell: row => <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"  onClick={handleView(row)}>View</button>
+        cell: row => <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"  onClick={console.log('tes')}>View</button>
       }
     ],
-    [handleView]
+    []
   );
 
 
   return (
     <>
-    {/* <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <button onClick={closeModal}>close</button>
-        <div>
-          <DataTable
-            title="Ingredients"
-            columns={columns}
-            data={filteredItems.Ingredients}
-          />
-        </div>
-      </Modal> */}
     <DataTable
       title="Requests"
       columns={columns}

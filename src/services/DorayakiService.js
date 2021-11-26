@@ -8,14 +8,14 @@ const getAllIngredients = () => {
   return api.get("/ingredients");
 };
 
-const getAllRequests = () => {
-  return api.get("/requests");
+const getRequests = (id=null) => {
+  return api.get("/requests"+((id)?"/"+id:""));
 }
 
 const DorayakiService = {
   getRecipes,
   getAllIngredients,
-  getAllRequests
+  getRequests
 };
 
 export default DorayakiService;
