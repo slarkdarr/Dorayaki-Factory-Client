@@ -100,14 +100,13 @@ const CardTableRecipes = () => {
         overlayClassName="Overlay"
       >
         <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
+        <div>
+          <DataTable
+            title="Ingredients"
+            columns={columns}
+            data={filteredItems.Ingredients}
+          />
+        </div>
       </Modal>
     <DataTable
       title="Recipes"
