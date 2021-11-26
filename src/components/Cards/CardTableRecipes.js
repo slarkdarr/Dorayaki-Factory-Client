@@ -95,7 +95,6 @@ const CardTableRecipes = () => {
       paginationDefaultPage={currentPage}
       onChangeRowsPerPage={handlePerRowsChange}
       onChangePage={handlePageChange}
-      selectableRows
       onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
     />
   );
