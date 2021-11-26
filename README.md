@@ -39,17 +39,12 @@ Sebuah aplikasi sistem pabrik dorayaki yang digunakan untuk menyuplai website to
 
 ## Pembagian Tugas
 
-- Daffa Ananda Pratama Resyaly :
-    - Perubahan halaman edit stok di toko
-    - Perubahan halaman create dorayaki di toko
-    - Palaman login and register di pabrik
-
-- Faris Aziz (13519065):
-    - Halaman resep di pabrik
-    - Index, detail, create form, edit form
-    - Data : nama, description, array ingredientsObject : id, quantity
-
-- Muhammad Jafar Gundari (13519197):
-    - Halaman daftar request di pabrik,
-    - Action : accept and decline (put ke request, data diperlukan : status)
-    - Sort and filter table
+- Perubahan halaman edit stok di toko : 13519107
+- Perubahan halaman create dorayaki di toko : 13519107
+- Palaman login and register di pabrik : 13519107
+- Halaman resep di pabrik : 13519065
+- Index, detail, create form, edit form : 13519065
+- Data : nama, description, array ingredientsObject (id, quantity) : 13519065
+- Halaman daftar request di pabrik : 13519197
+- Action : accept and decline (put ke request, data diperlukan -> status) : 13519197
+- Sort and filter table : 13519197
