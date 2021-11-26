@@ -73,6 +73,7 @@ const CardTableIngredients = () => {
   const handleView = useCallback(
     (row) => () => {
       setCurrentId(row.id);
+      setStock({ ...stock, ['quantity']: row.stock });
       openModal();
     },
     [currentPage, perPage, totalRows]
@@ -132,6 +133,7 @@ const CardTableIngredients = () => {
     }
     const response = await DorayakiService.updateIngredient(currentId, data); // id here
     console.log(data);
+    FetchIngredients();
     closeModal();
   };
 

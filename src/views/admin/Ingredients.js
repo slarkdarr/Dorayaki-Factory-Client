@@ -46,6 +46,9 @@ const Ingredients = () => {
     if (response.status === 'Error'){
       return alert(response.message);
     }
+    else {
+      window.location.reload();
+    }
     closeModal();
   };
 
