@@ -9,11 +9,7 @@ const getAllIngredients = () => {
 };
 
 const updateIngredient = (id=null, data=null) => {
-  const config = {
-    headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` }
-  };
-  console.log(data)
-  return api.put("/ingredients"+((id)?"/"+id:""), {},config);
+  return api.put("/ingredients"+((id)?"/"+id:""), data);
 };
 const getRequests = (id=null) => {
   return api.get("/requests"+((id)?"/"+id:""));

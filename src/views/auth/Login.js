@@ -21,9 +21,9 @@ login = (e) => {
         .then(function (response) {
             console.log('user login success response :: ', response.data);
             //---set Authorization header ---
-            api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data;
             //token store in session storage
-            sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('token', response.data.data);
             self.props.history.push('/');
         })
         .catch(function (error) {
