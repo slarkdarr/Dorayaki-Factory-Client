@@ -146,8 +146,8 @@ const CardTableRecipes = () => {
         sortable: true,
       },
       {
-        name: "Stock",
-        selector: (row) => row["stock"],
+        name: "Quantity",
+        selector: (row) => row["RecipeIngredients"]["quantity"],
         sortable: true,
       },
     ],
