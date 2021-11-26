@@ -24,7 +24,7 @@ login = (e) => {
             api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data;
             //token store in session storage
             sessionStorage.setItem('token', response.data.data);
-            self.props.history.push('/');
+            self.props.history.push('/admin/dashboard');
         })
         .catch(function (error) {
             alert('Invalid Credentials! Please Enter Valid Credentials.');

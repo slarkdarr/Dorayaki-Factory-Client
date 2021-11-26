@@ -25,7 +25,7 @@ class CheckValidateRoute extends React.Component {
                     {/* add routes without layouts */}
                     {/* <Route path="/" exact component={Landing} /> */}
                     {/* add redirect for first page */}
-                    <Redirect from="*" to="/admin/dashboard" />
+                    {/* <Redirect from="*" to="/admin/dashboard" /> */}
                 </div>
             )
         }else{
