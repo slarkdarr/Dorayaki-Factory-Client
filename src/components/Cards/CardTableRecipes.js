@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
 import DorayakiService from "services/DorayakiService";
+import './style.css'
 
 const CardTableRecipes = () => {
   const [data, setData] = useState([]);
@@ -95,6 +96,8 @@ const CardTableRecipes = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
+        className="Modal"
+        overlayClassName="Overlay"
       >
         <button onClick={closeModal}>close</button>
         <div>I am a modal</div>
