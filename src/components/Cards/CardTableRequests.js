@@ -70,9 +70,12 @@ const CardTableRequests = () => {
         status: 'rejected',
       };
     }
-    const response = await DorayakiService.updateRequest(currentId, data); // id here
-    console.log(data);
-    console.log(response);
+
+    const response = await DorayakiService.updateRequest(currentId, data);
+  
+    if (response.data.status === "Error" && response.data.message === "Cannot update recipes with name not found") {
+      alert(response.data.message);
+    }
     fetchRequests(1);
   };
 
