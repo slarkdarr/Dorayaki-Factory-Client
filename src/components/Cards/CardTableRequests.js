@@ -71,8 +71,6 @@ const CardTableRequests = () => {
       };
     }
     const response = await DorayakiService.updateRequest(currentId, data); // id here
-    console.log(data);
-    console.log(response);
   };
 
   const columns = useMemo(
@@ -99,12 +97,12 @@ const CardTableRequests = () => {
       },
       {
         name: "Created At",
-        selector: (row) => row["createdAt"],
+        selector: (row) => row["createdAt"].replace(/T/g, " "),
         sortable: true
       },
       {
         name: "Updated At",
-        selector: (row) => row["updatedAt"],
+        selector: (row) => row['updatedAt'].replace(/T/g," "),
         sortable: true
       },
       {
