@@ -100,12 +100,16 @@ const CardTableRequests = () => {
       },
       {
         name: "Created At",
-        selector: (row) => row["createdAt"].replace(/T/g, " "),
+        selector: (row) => {
+          return new Date(row["createdAt"]).toString()
+        },
         sortable: true
       },
       {
         name: "Updated At",
-        selector: (row) => row['updatedAt'].replace(/T/g," "),
+        selector: (row) => {
+          return new Date(row["updatedAt"]).toString()
+        },
         sortable: true
       },
       {
