@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Modal from 'react-modal';
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
-import api from "../../api"
+import DorayakiService from "services/DorayakiService";
 
 const CardTableRecipes = () => {
   const [data, setData] = useState([]);
@@ -32,7 +32,7 @@ const CardTableRecipes = () => {
   const fetchUsers = async (page, size = perPage) => {
     setLoading(true);
 
-    const response = await api.get('/recipes');
+    const response = await DorayakiService.getAllRecipes();
 
     setData(response.data.data);
     setTotalRows(response.data.total);
