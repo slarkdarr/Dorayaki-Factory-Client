@@ -49,7 +49,7 @@ const Recipes = () => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { name: "", quantity: "" }]);
+    setInputList([...inputList, { id: "", quantity: "" }]);
   };
 
   const saveRecipes = async (e) => {
