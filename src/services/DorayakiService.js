@@ -8,6 +8,9 @@ const getAllIngredients = () => {
   return api.get("/ingredients");
 };
 
+const updateIngredient = (id=null) => {
+  return api.put("/ingredients"+((id)?"/"+id:""));
+};
 const getRequests = (id=null) => {
   return api.get("/requests"+((id)?"/"+id:""));
 }
@@ -15,6 +18,7 @@ const getRequests = (id=null) => {
 const DorayakiService = {
   getRecipes,
   getAllIngredients,
+  updateIngredient,
   getRequests
 };
 
