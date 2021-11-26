@@ -8,8 +8,12 @@ const getAllIngredients = () => {
   return api.get("/ingredients");
 };
 
-const updateIngredient = (id=null) => {
-  return api.put("/ingredients"+((id)?"/"+id:""));
+const updateIngredient = (id=null, data=null) => {
+  const config = {
+    headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}` }
+  };
+  console.log(data)
+  return api.put("/ingredients"+((id)?"/"+id:""), {},config);
 };
 const getRequests = (id=null) => {
   return api.get("/requests"+((id)?"/"+id:""));

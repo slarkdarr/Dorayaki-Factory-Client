@@ -21,7 +21,7 @@ login = (e) => {
         .then(function (response) {
             console.log('user login success response :: ', response.data);
             //---set Authorization header ---
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+            api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
             //token store in session storage
             sessionStorage.setItem('token', response.data.token);
             self.props.history.push('/');

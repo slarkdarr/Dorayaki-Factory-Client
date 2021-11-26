@@ -11,6 +11,7 @@ const CardTableIngredients = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentId, setCurrentId] = useState(1);
   const [filterText, setFilterText] = useState("");
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const filteredItems = data.filter(
@@ -71,7 +72,7 @@ const CardTableIngredients = () => {
 
   const handleView = useCallback(
     (row) => () => {
-      console.log(row.id);
+      setCurrentId(row.id);
       openModal();
     },
     [currentPage, perPage, totalRows]
@@ -124,10 +125,10 @@ const CardTableIngredients = () => {
 
   const saveStock = async () => {
     var data = {
-      quantity: stock.quantity,
+      stock: stock.quantity,
     };
-    const response = await DorayakiService.updateIngredient(); // id here
-    console.log(data);
+    const response = await DorayakiService.updateIngredient(currentId, data); // id here
+    console.log(currentId);
     closeModal();
   };
 
