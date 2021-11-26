@@ -1,92 +1,130 @@
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import Modal from 'react-modal';
+import DataTable from "react-data-table-component";
+import FilterCardComponent from "./FilterCardComponent";
+import DorayakiService from "services/DorayakiService";
 
-// components
-import FetchIngredients from "components/FetchIngredients";
+const CardTableIngredients = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterText, setFilterText] = useState('');
+	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+	const filteredItems = data.filter(
+		item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
+	);
 
-export default function CardTableIngredients({ color }) {
+  const subHeaderComponentMemo = useMemo(() => {
+		const handleClear = () => {
+			if (filterText) {
+				setResetPaginationToggle(!resetPaginationToggle);
+				setFilterText('');
+			}
+		};
+
+		return (
+			<FilterCardComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+		);
+	}, [filterText, resetPaginationToggle]);
+
+  const FetchIngredients = async (page, size = perPage) => {
+    setLoading(true);
+
+    const response = await DorayakiService.getAllIngredients();
+
+    setData(response.data.data);
+    setTotalRows(response.data.total);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    FetchIngredients(1);
+  }, []);
+
+  const columns = useMemo(
+    () => [
+      {
+        name: "ID",
+        selector: "id",
+        sortable: true
+      },
+      {
+        name: "Name",
+        selector: "name",
+        sortable: true
+      },
+      {
+        name: "Stock",
+        selector: "stock",
+        sortable: true
+      },
+      {
+        name: "Action",
+        // eslint-disable-next-line react/button-has-type
+        cell: row => <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={openModal}>Edit Stock</button>
+      }
+    ],
+    []
+  );
+
+  const handlePageChange = page => {
+    FetchIngredients(page);
+    setCurrentPage(page);
+  };
+
+  const handlePerRowsChange = async (newPerPage, page) => {
+    FetchIngredients(page, newPerPage);
+    setPerPage(newPerPage);
+  };
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <>
-      <div
-        className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-          (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
-        }
+    <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Example Modal"
       >
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3
-                className={
-                  "font-semibold text-lg " +
-                  (color === "light" ? "text-blueGray-700" : "text-white")
-                }
-              >
-                Ingredient
-              </h3>
-            </div>
-          </div>
-        </div>
-        <div className="block w-full overflow-x-auto">
-          {/* Projects table */}
-          <table className="items-center w-full bg-transparent border-collapse">
-            <thead>
-              <tr>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  ID
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Name
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Stock
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <FetchIngredients />
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <button onClick={closeModal}>close</button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
+    <DataTable
+      title="Ingredients"
+      columns={columns}
+      data={filteredItems}
+			pagination
+			paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+			subHeader
+			subHeaderComponent={subHeaderComponentMemo}
+      progressPending={loading}
+      pagination
+      paginationServer
+      paginationTotalRows={totalRows}
+      paginationDefaultPage={currentPage}
+      onChangeRowsPerPage={handlePerRowsChange}
+      onChangePage={handlePageChange}
+      onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
+    />
     </>
   );
-}
-
-CardTableIngredients.defaultProps = {
-  color: "light",
 };
 
-CardTableIngredients.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
-};
+export default CardTableIngredients;
