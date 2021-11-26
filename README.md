@@ -2,7 +2,7 @@
 
 ## Description
 
-Sebuah aplikasi e-commerce sederhana menjual varian dorayaki
+Sebuah aplikasi sistem pabrik dorayaki yang digunakan untuk menyuplai website toko dorayaki
 
 ## How to Run
 
