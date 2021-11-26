@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
 import DorayakiService from "services/DorayakiService";
+import "./style.css";
 
 const CardTableIngredients = () => {
   const [data, setData] = useState([]);
@@ -10,24 +11,29 @@ const CardTableIngredients = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterText, setFilterText] = useState('');
-	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
-	const filteredItems = data.filter(
-		item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
-	);
+  const [filterText, setFilterText] = useState("");
+  const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+  const filteredItems = data.filter(
+    (item) =>
+      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
+  );
 
   const subHeaderComponentMemo = useMemo(() => {
-		const handleClear = () => {
-			if (filterText) {
-				setResetPaginationToggle(!resetPaginationToggle);
-				setFilterText('');
-			}
-		};
+    const handleClear = () => {
+      if (filterText) {
+        setResetPaginationToggle(!resetPaginationToggle);
+        setFilterText("");
+      }
+    };
 
-		return (
-			<FilterCardComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
-		);
-	}, [filterText, resetPaginationToggle]);
+    return (
+      <FilterCardComponent
+        onFilter={(e) => setFilterText(e.target.value)}
+        onClear={handleClear}
+        filterText={filterText}
+      />
+    );
+  }, [filterText, resetPaginationToggle]);
 
   const FetchIngredients = async (page, size = perPage) => {
     setLoading(true);
@@ -43,33 +49,7 @@ const CardTableIngredients = () => {
     FetchIngredients(1);
   }, []);
 
-  const columns = useMemo(
-    () => [
-      {
-        name: "ID",
-        selector: "id",
-        sortable: true
-      },
-      {
-        name: "Name",
-        selector: "name",
-        sortable: true
-      },
-      {
-        name: "Stock",
-        selector: "stock",
-        sortable: true
-      },
-      {
-        name: "Action",
-        // eslint-disable-next-line react/button-has-type
-        cell: row => <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={openModal}>Edit Stock</button>
-      }
-    ],
-    []
-  );
-
-  const handlePageChange = page => {
+  const handlePageChange = (page) => {
     FetchIngredients(page);
     setCurrentPage(page);
   };
@@ -89,12 +69,57 @@ const CardTableIngredients = () => {
     setIsOpen(false);
   }
 
+  const handleView = useCallback(
+    (row) => () => {
+      console.log(row.id);
+      openModal();
+    },
+    [currentPage, perPage, totalRows]
+  );
+
+  const columns = useMemo(
+    () => [
+      {
+        name: "ID",
+        selector: (row) => row["id"],
+        sortable: true,
+      },
+      {
+        name: "Name",
+        selector: (row) => row["name"],
+        sortable: true,
+      },
+      {
+        name: "Stock",
+        selector: (row) => row["stock"],
+        sortable: true,
+      },
+      {
+        name: "Action",
+        // eslint-disable-next-line react/button-has-type
+        cell: (row) => (
+          <button
+            className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={handleView(row)}
+          >
+            Edit Stock
+          </button>
+        ),
+      },
+    ],
+    [handleView]
+  );
+
   return (
     <>
-    <Modal
+      <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
+        className="Modal"
+        overlayClassName="Overlay"
+        ariaHideApp={false}
       >
         <button onClick={closeModal}>close</button>
         <div>I am a modal</div>
@@ -105,24 +130,42 @@ const CardTableIngredients = () => {
           <button>inside</button>
           <button>the modal</button>
         </form>
+
+        {/*footer*/}
+        <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+          <button
+            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={closeModal}
+          >
+            Close
+          </button>
+          <button
+            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={closeModal}
+          >
+            Save Changes
+          </button>
+        </div>
       </Modal>
-    <DataTable
-      title="Ingredients"
-      columns={columns}
-      data={filteredItems}
-			pagination
-			paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
-			subHeader
-			subHeaderComponent={subHeaderComponentMemo}
-      progressPending={loading}
-      pagination
-      paginationServer
-      paginationTotalRows={totalRows}
-      paginationDefaultPage={currentPage}
-      onChangeRowsPerPage={handlePerRowsChange}
-      onChangePage={handlePageChange}
-      onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
-    />
+      <DataTable
+        title="Recipes"
+        columns={columns}
+        data={filteredItems}
+        pagination
+        paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+        subHeader
+        subHeaderComponent={subHeaderComponentMemo}
+        progressPending={loading}
+        pagination
+        paginationServer
+        paginationTotalRows={totalRows}
+        paginationDefaultPage={currentPage}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
+      />
     </>
   );
 };

@@ -112,17 +112,17 @@ const CardTableRecipes = () => {
     () => [
       {
         name: "ID",
-        selector: "id",
+        selector: row => row['id'],
         sortable: true
       },
       {
         name: "Name",
-        selector: "name",
+        selector: row => row['name'],
         sortable: true
       },
       {
         name: "Description",
-        selector: "description",
+        selector: row => row['description'],
         sortable: true
       },
       {
@@ -143,6 +143,7 @@ const CardTableRecipes = () => {
         contentLabel="Example Modal"
         className="Modal"
         overlayClassName="Overlay"
+        ariaHideApp={false}
       >
         <button onClick={closeModal}>close</button>
         <div>
