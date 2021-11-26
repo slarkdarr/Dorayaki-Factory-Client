@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import DorayakiService from "../../services/DorayakiService";
+import api from "api";
 // components
 
 import CardTableRecipes from "components/Cards/CardTableRecipes.js";
@@ -62,10 +63,20 @@ const Recipes = () => {
       return alert("Name or description cannot be null");
     }
     // const response = await DorayakiService.createRecipes(data); // id here
-    console.log(data);
-    // if (response.status === "Error") {
-    //   return alert(response.message);
-    // }
+    inputList.forEach((element,i) => {
+      data['ingredientsObject']=[];
+      data['ingredientsObject'].push({
+        id:element.id,
+        quantity:element.quantity
+      });
+    });
+    const response = await DorayakiService.createRecipes(data);
+    if (response.status === 'Error'){
+      return alert(response.message);
+    }
+    else {
+      window.location.reload();
+    }
     closeModal();
   };
 
@@ -118,9 +129,9 @@ const Recipes = () => {
               return (
                 <div className="box">
                   <input
-                    name="name"
-                    placeholder="Enter Name"
-                    value={x.name}
+                    name="id"
+                    placeholder="Enter ID"
+                    value={x.id}
                     onChange={(e) => handleInputChange(e, i)}
                   />
                   <input
