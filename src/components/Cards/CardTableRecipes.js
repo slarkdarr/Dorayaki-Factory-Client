@@ -123,6 +123,26 @@ const CardTableRecipes = () => {
     ],
     [handleView]
   );
+  const columnsIngredients = useMemo(
+    () => [
+      {
+        name: "ID",
+        selector: (row) => row["id"],
+        sortable: true,
+      },
+      {
+        name: "Name",
+        selector: (row) => row["name"],
+        sortable: true,
+      },
+      {
+        name: "Quantity",
+        selector: (row) => row["RecipeIngredients"]["quantity"],
+        sortable: true,
+      },
+    ],
+    []
+  );
 
 
   return (
@@ -139,7 +159,7 @@ const CardTableRecipes = () => {
         <div>
           <DataTable
             title="Ingredients"
-            columns={columns}
+            columns={columnsIngredients}
             data={ingredients}
           />
         </div>

@@ -11,11 +11,15 @@ const getAllIngredients = () => {
 const updateIngredient = (id=null) => {
   return api.put("/ingredients"+((id)?"/"+id:""));
 };
+const getRequests = (id=null) => {
+  return api.get("/requests"+((id)?"/"+id:""));
+}
 
 const DorayakiService = {
   getRecipes,
   getAllIngredients,
   updateIngredient,
+  getRequests
 };
 
 export default DorayakiService;
