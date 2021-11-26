@@ -8,6 +8,18 @@ const getAllIngredients = () => {
   return api.get("/ingredients");
 };
 
+const createRecipes = (data) => {
+  return api.post("/recipes", data);
+};
+
+const createIngredient = (data) => {
+  return api.post("/ingredients", data);
+};
+
+const updateRequest = (id,data) => {
+  return api.put("/requests"+((id)?"/"+id:""), data);
+};
+
 const updateIngredient = (id=null, data=null) => {
   return api.put("/ingredients"+((id)?"/"+id:""), data);
 };
@@ -19,7 +31,10 @@ const DorayakiService = {
   getRecipes,
   getAllIngredients,
   updateIngredient,
-  getRequests
+  getRequests,
+  createRecipes,
+  createIngredient,
+  updateRequest
 };
 
 export default DorayakiService;
