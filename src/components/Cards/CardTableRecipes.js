@@ -6,6 +6,7 @@ import DorayakiService from "services/DorayakiService";
 import './style.css'
 
 const CardTableRecipes = () => {
+  // Recipes
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -17,6 +18,14 @@ const CardTableRecipes = () => {
 		item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
 	);
 
+  // Ingredients
+  const [ingredients, setIngredients] = useState([]);
+  const [loadingIngredients, setLoadingIngredients] = useState(false);
+  const [totalRowsIngredients, setTotalRowsIngredients] = useState(0);
+  const [perPageIngredients, setPerPageIngredients] = useState(10);
+  const [currentPageIngredients, setCurrentPageIngredients] = useState(1);
+
+  // Filter Recipes
   const subHeaderComponentMemo = useMemo(() => {
 		const handleClear = () => {
 			if (filterText) {
@@ -30,10 +39,11 @@ const CardTableRecipes = () => {
 		);
 	}, [filterText, resetPaginationToggle]);
 
-  const fetchUsers = async (page, size = perPage) => {
+  // Fetch Recipes
+  const fetchRecipes = async (page, size = perPage) => {
     setLoading(true);
 
-    const response = await DorayakiService.getAllRecipes();
+    const response = await DorayakiService.getRecipes();
 
     setData(response.data.data);
     setTotalRows(response.data.total);
@@ -41,17 +51,41 @@ const CardTableRecipes = () => {
   };
 
   useEffect(() => {
-    fetchUsers(1);
+    fetchRecipes(1);
   }, []);
 
-  
+  // fetchIngredients
+  const fetchIngredients = async (id) => {
+    setLoadingIngredients(true);
+
+    const response = await DorayakiService.getRecipes(id);
+    setIngredients(response.data.data.Ingredients);
+    setTotalRowsIngredients(response.data.total);
+    setLoadingIngredients(false);
+  };
+
+  useEffect(() => {
+    fetchIngredients(1);
+  }, []);
+
+  // handlepagechange recipes
   const handlePageChange = page => {
-    fetchUsers(page);
+    fetchRecipes(page);
     setCurrentPage(page);
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    fetchUsers(page, newPerPage);
+    fetchRecipes(page, newPerPage);
+    setPerPage(newPerPage);
+  };
+  // handlepagechange ingredients
+  const handlePageChangeIngredients = page => {
+    fetchIngredients(page);
+    setCurrentPageIngredients(page);
+  };
+
+  const handlePerRowsChangeIngredients = async (newPerPage, page) => {
+    fetchRecipes(page, newPerPage);
     setPerPage(newPerPage);
   };
 
@@ -68,6 +102,7 @@ const CardTableRecipes = () => {
   const handleView = useCallback(
     row =>  () => {
       console.log(row.id);
+      fetchIngredients(row.id);
       openModal();
     },
     [currentPage, perPage, totalRows]
@@ -77,17 +112,17 @@ const CardTableRecipes = () => {
     () => [
       {
         name: "ID",
-        selector: "id",
+        selector: row => row['id'],
         sortable: true
       },
       {
         name: "Name",
-        selector: "name",
+        selector: row => row['name'],
         sortable: true
       },
       {
         name: "Description",
-        selector: "description",
+        selector: row => row['description'],
         sortable: true
       },
       {
@@ -108,13 +143,14 @@ const CardTableRecipes = () => {
         contentLabel="Example Modal"
         className="Modal"
         overlayClassName="Overlay"
+        ariaHideApp={false}
       >
         <button onClick={closeModal}>close</button>
         <div>
           <DataTable
             title="Ingredients"
             columns={columns}
-            data={filteredItems.Ingredients}
+            data={ingredients}
           />
         </div>
       </Modal>
