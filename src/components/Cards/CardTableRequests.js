@@ -14,7 +14,7 @@ const CardTableRequests = () => {
   const [filterText, setFilterText] = useState('');
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 	const filteredItems = data.filter(
-		item => item.email && item.email.toLowerCase().includes(filterText.toLowerCase()),
+		item => (item.email && item.email.toLowerCase().includes(filterText.toLowerCase()) || item.recipe_name && item.recipe_name.toLowerCase().includes(filterText.toLowerCase())),
 	);
 
   const subHeaderComponentMemo = useMemo(() => {
