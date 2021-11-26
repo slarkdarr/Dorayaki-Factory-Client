@@ -1,9 +1,7 @@
-import React, { useEffect, useCallback, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-//component
-
-import CardTableRequest from "components/Cards/CardTableRequest.js";
+const url = "http://localhost:5000/api/requests";
 
 export default function FetchRequests() {  
   const [data, setData] = useState([]);
@@ -11,30 +9,6 @@ export default function FetchRequests() {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-
-  const url = "http://localhost:5000/api/requests";
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Email",
-        accessor: "email"
-      },
-      {
-        Header: "Nama Resep",
-        accessor: "recipe_name"
-      },
-      {
-        Header: "Jumlah",
-        accessor: "quantity"
-      },
-      {
-        Header: "Status",
-        accessor: "status"
-      }
-    ],
-    []
-  );
 
   useEffect(() => {
     axios
@@ -68,8 +42,27 @@ export default function FetchRequests() {
       </tr>
     );
 
-  return(
-  <div className="App">
-      <CardTableRequest columns={columns} data={data.data} />
-  </div>)
+    return data.data.map((request) => {
+      return (
+        <tr>
+          <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+            {request.email}
+          </th>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {request.recipe_name}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {request.quantity}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {request.status}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            <button className="whitespace-nowrap  bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 border border-blue-700 rounded">
+              Button
+            </button>
+          </td>
+        </tr>
+      );
+    });
 }

@@ -109,16 +109,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/requestlist") !== -1
+                    (window.location.href.indexOf("/admin/requests") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/requestlist"
+                  to="/admin/requests"
                 >
                   <i
                     className={
                       "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/requestlist") !== -1
+                      (window.location.href.indexOf("/admin/requests") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }

@@ -12,7 +12,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 import Dashboard from "views/admin/Dashboard.js";
 import Ingredients from "views/admin/Ingredients.js";
-import RequestList from "views/admin/RequestList.js";
+import Requests from "views/admin/Requests.js";
 import Recipes from "views/admin/Recipes.js";
 
 export default function Admin() {
@@ -27,7 +27,7 @@ export default function Admin() {
           <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin/ingredients" exact component={Ingredients} />
-            <Route path="/admin/requestlist" exact component={RequestList} />
+            <Route path="/admin/requests" exact component={Requests} />
             <Route path="/admin/recipes" exact component={Recipes} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
