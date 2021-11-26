@@ -1,7 +1,7 @@
 import api from "../api";
 
-const getAllRecipes = () => {
-  return api.get("/recipes");
+const getRecipes = (id=null) => {
+  return api.get("/recipes"+((id)?"/"+id:""));
 };
 
 const getAllIngredients = () => {
@@ -9,7 +9,7 @@ const getAllIngredients = () => {
 };
 
 const DorayakiService = {
-  getAllRecipes,
+  getRecipes,
   getAllIngredients,
 };
 
