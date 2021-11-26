@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Modal from "react-modal";
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
@@ -49,40 +49,6 @@ const CardTableIngredients = () => {
     FetchIngredients(1);
   }, []);
 
-  const columns = useMemo(
-    () => [
-      {
-        name: "ID",
-        selector: row => row['id'],
-        sortable: true,
-      },
-      {
-        name: "Name",
-        selector: row => row['name'],
-        sortable: true,
-      },
-      {
-        name: "Stock",
-        selector: row => row['stock'],
-        sortable: true,
-      },
-      {
-        name: "Action",
-        // eslint-disable-next-line react/button-has-type
-        cell: (row) => (
-          <button
-            className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
-            onClick={openModal}
-          >
-            Edit Stock
-          </button>
-        ),
-      },
-    ],
-    []
-  );
-
   const handlePageChange = (page) => {
     FetchIngredients(page);
     setCurrentPage(page);
@@ -103,6 +69,48 @@ const CardTableIngredients = () => {
     setIsOpen(false);
   }
 
+  const handleView = useCallback(
+    (row) => () => {
+      console.log(row.id);
+      openModal();
+    },
+    [currentPage, perPage, totalRows]
+  );
+
+  const columns = useMemo(
+    () => [
+      {
+        name: "ID",
+        selector: (row) => row["id"],
+        sortable: true,
+      },
+      {
+        name: "Name",
+        selector: (row) => row["name"],
+        sortable: true,
+      },
+      {
+        name: "Stock",
+        selector: (row) => row["stock"],
+        sortable: true,
+      },
+      {
+        name: "Action",
+        // eslint-disable-next-line react/button-has-type
+        cell: (row) => (
+          <button
+            className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={handleView(row)}
+          >
+            Edit Stock
+          </button>
+        ),
+      },
+    ],
+    [handleView]
+  );
+
   return (
     <>
       <Modal
@@ -111,6 +119,7 @@ const CardTableIngredients = () => {
         contentLabel="Example Modal"
         className="Modal"
         overlayClassName="Overlay"
+        ariaHideApp={false}
       >
         <button onClick={closeModal}>close</button>
         <div>I am a modal</div>
