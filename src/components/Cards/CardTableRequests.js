@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Modal from 'react-modal';
 import DataTable from "react-data-table-component";
 import FilterCardComponent from "./FilterCardComponent";
@@ -56,6 +56,25 @@ const CardTableRequests = () => {
     setPerPage(newPerPage);
   };
 
+  const saveRequestStatus = async (row, newStatus) => {
+    const currentId = row.id;
+    var data;
+    if (newStatus === 'accepted') {
+      data = {
+        recipe_name: row.recipe_name,
+        status: 'accepted',
+      };
+    } else {
+      data = {
+        recipe_name: row.recipe_name,
+        status: 'rejected',
+      };
+    }
+    const response = await DorayakiService.updateRequest(currentId, data); // id here
+    console.log(data);
+    console.log(response);
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -92,17 +111,24 @@ const CardTableRequests = () => {
         name: "Action",
         // eslint-disable-next-line react/button-has-type
         cell: row => {
-          if (row.status=="pending") {
-            return <div>
-                <button className="bg-teal-500 text-white active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          return row.status === "pending" ?
+              <div>
+                <button
+                  className="bg-teal-500 text-white active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => saveRequestStatus(row, 'accepted')}
+                >
                   <i className="fas fa-check"></i>
                 </button>
-                <button className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                <button
+                  className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => saveRequestStatus(row, 'rejected')}
+                >
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-          }
-          return ""
+          : ""
         }
       }
     ],
