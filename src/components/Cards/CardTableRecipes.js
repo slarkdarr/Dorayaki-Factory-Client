@@ -1,92 +1,152 @@
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import DorayakiService from "../../services/DorayakiService";
+import { useTable } from "react-table";
 
-// components
-import FetchRecipes from "components/FetchRecipes";
+const CardTableRecipes = (props) => {
+  const [recipes, setRecipes] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const recipesRef = useRef();
 
-export default function CardTableRecipes({ color }) {
+  recipesRef.current = recipes;
+
+  useEffect(() => {
+    retrieveRecipes();
+  }, []);
+
+  // const onChangeSearchName = (e) => {
+  //   const searchName = e.target.value;
+  //   setSearchName(searchName);
+  // };
+
+  const retrieveRecipes = () => {
+    DorayakiService.getAllRecipes()
+      .then((response) => {
+        setRecipes(response.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const refreshList = () => {
+    retrieveRecipes();
+  };
+
+  // const findByName = () => {
+  //   DorayakiService.findByName(searchName)
+  //     .then((response) => {
+  //       setRecipes(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+      {
+        Header: "Description",
+        accessor: "description",
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: (props) => {
+          const rowIdx = props.row.id;
+          return (
+            <div>
+              <button className="whitespace-nowrap  bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 border border-blue-700 rounded"
+                    onClick={console.log('tes')}>
+                View
+              </button>
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({
+    columns,
+    data: recipes,
+  });
+
   return (
-    <>
-      <div
-        className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-          (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
-        }
-      >
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3
-                className={
-                  "font-semibold text-lg " +
-                  (color === "light" ? "text-blueGray-700" : "text-white")
-                }
+    <div className="relative flex flex-col in-w-0 break-words w-full mb-6 shadow-lg rounded ">
+      <div className="list row">
+        <div className="col-md-8">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by title"
+              value={searchName}
+              onChange={console.log('tes')}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={console.log('tes')}
               >
-                Recipe
-              </h3>
+                Search
+              </button>
             </div>
           </div>
         </div>
-        <div className="block w-full overflow-x-auto">
-          {/* Projects table */}
-          <table className="items-center w-full bg-transparent border-collapse">
+        <div className="col-md-12 list">
+          <table
+            className="items-center w-full bg-transparent border-collapse"
+            style={{ border: 'solid 1px blue' }}
+            {...getTableProps()}
+          >
             <thead>
-              <tr>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  ID
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Name
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Description
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
-                  Action
-                </th>
-              </tr>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th 
+                      className="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                      {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
             </thead>
-            <tbody>
-              <FetchRecipes />
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-CardTableRecipes.defaultProps = {
-  color: "light",
-};
-
-CardTableRecipes.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
-};
+export default CardTableRecipes;
