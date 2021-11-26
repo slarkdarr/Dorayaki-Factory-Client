@@ -18,7 +18,7 @@ class Register extends Component {
   userRegistration = (e) => {
       e.preventDefault();
       let self = this;
-      api.post('/api/users', self.state.registration)
+      api.post('/users', self.state.registration)
           .then(function (response) {
               console.log('user registration success response :: ', response.data);
               alert('User Registration Successful.');

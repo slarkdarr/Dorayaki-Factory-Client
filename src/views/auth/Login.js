@@ -17,7 +17,7 @@ class Login extends Component {
 login = (e) => {
     e.preventDefault();
     let self = this;
-    api.post('/api/users/login', self.state.login)
+    api.post('/users/login', self.state.login)
         .then(function (response) {
             console.log('user login success response :: ', response.data);
             //---set Authorization header ---
