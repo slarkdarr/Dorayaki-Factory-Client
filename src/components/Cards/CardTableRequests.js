@@ -71,6 +71,9 @@ const CardTableRequests = () => {
       };
     }
     const response = await DorayakiService.updateRequest(currentId, data); // id here
+    console.log(data);
+    console.log(response);
+    fetchRequests(1);
   };
 
   const columns = useMemo(

@@ -72,13 +72,13 @@ const Ingredients = () => {
                 Create new Ingredients
               </h3>
               <div className="form-group mb-2 flex flex-wrap">
-                <div w-full px-4>
+                <div className="w-full px-4">
                   <label htmlFor="name" className="mr-2">
                     Name
                   </label><br></br>
                   <input
                     type="text"
-                    className="form-control mb-3 pt-0"
+                    className="form-control mb-3 pt-0 w-full"
                     id="name"
                     required
                     value={item.name}
@@ -86,14 +86,14 @@ const Ingredients = () => {
                     name="name"
                   />
                 </div>
-                <div w-full px-4>
+                <div className="w-full px-4">
                   <label htmlFor="stock" className="ml-2">
                     Initial Stock
                   </label><br></br>
                   <input
                     type="number"
                     min={1}
-                    className="form-control mb-3 pt-0"
+                    className="form-control mb-3 pt-0 w-full"
                     id="stock"
                     required
                     value={item.stock}
